@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { SafeAreaView, StyleSheet, ActivityIndicator, Alert, Modal, Image, Dimensions } from "react-native";
+import { SafeAreaView, StyleSheet, ActivityIndicator, Modal, Image, Dimensions } from "react-native";
 import { Camera } from 'expo-camera';
 import { RNFFmpeg, RNFFmpegConfig } from "react-native-ffmpeg";
-import Carousel from "react-native-snap-carousel";
+//import Carousel from "react-native-snap-carousel";
 import { Video } from 'expo-av';
-import Image360Viewer from '@hauvo/react-native-360-image-viewer';
 
 import { View, Text, Button, Icon, Header, Left, Right, FooterTab } from "native-base";
 
@@ -85,7 +84,7 @@ function Camera__() {
           const asset = await MediaLibrary.createAssetAsync(uri)
           await RNFS.mkdir(albumUri)
           // StorageAccessFramework.copyAsync({ from: asset.uri, to: albumUri + '/image_00' + width + '.jpg'})
-          await RNFS.moveFile(asset.uri, albumUri + '/image_001.jpg')
+          await RNFS.copyFile(asset.uri, albumUri + '/image_001.jpg')
           //newAlbum.push(albumUri + '/image_001.jpg')
           newAlbum.push(asset)
       }}
@@ -112,7 +111,7 @@ function Camera__() {
               assetName = '/image_00' + width + '.jpg';
             else
               assetName = '/image_0' + width + '.jpg';
-            await RNFS.moveFile(asset.uri, albumUri + assetName)
+            await RNFS.copyFile(asset.uri, albumUri + assetName)
             //newAlbum.push('file://' + albumUri + assetName)
             newAlbum.push(asset)
           }
